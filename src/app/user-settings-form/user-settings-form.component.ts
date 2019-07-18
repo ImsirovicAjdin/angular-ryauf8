@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { UserSettings } from '../data/user-settings';
 
 @Component({
   selector: 'app-user-settings-form',
@@ -8,7 +9,7 @@ import { Component, OnInit } from '@angular/core';
       <form #form="ngForm">
         <div class="form-group">
         <label for="name"></label>
-        <input id="name" name="name" class="form-control" placeholder="Name" ngModel />
+        <input id="name" name="name" class="form-control" placeholder="Name" [(ngModel)]="userSettings.name" />
         </div>
 
       <div class="form-check form-group">
@@ -71,7 +72,10 @@ import { Component, OnInit } from '@angular/core';
     <!--
     {{ form | json }}
     -->
+    <!--
     {{ form.value | json }}
+    -->
+    {{ userSettings | json }}
     </pre>
   `,
   styles: [
@@ -79,6 +83,14 @@ import { Component, OnInit } from '@angular/core';
   ]
 })
 export class UserSettingsFromComponent implements OnInit {
+
+  userSettings : UserSettings = {
+    name: 'Linus',
+    emailOffers: true,
+    interfaceStyle: 'dark',
+    subscriptionType: 'Annual',
+    notes: 'Here are some notes...'
+  }
 
   constructor() { }
 
