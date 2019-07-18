@@ -75,6 +75,9 @@ import { UserSettings } from '../data/user-settings';
     <!--
     {{ form.value | json }}
     -->
+    <!--
+    {{ userSettings | json }}
+    -->
     {{ userSettings | json }}
     </pre>
   `,
@@ -84,7 +87,8 @@ import { UserSettings } from '../data/user-settings';
 })
 export class UserSettingsFromComponent implements OnInit {
 
-  userSettings : UserSettings = {
+  //userSettings : UserSettings = {
+    originalUserSettings : UserSettings = {
     name: 'Linus',
     emailOffers: true,
     interfaceStyle: 'dark',
@@ -94,8 +98,33 @@ export class UserSettingsFromComponent implements OnInit {
     testing: '2019-07-05'
   }
 
+  userSettings : UserSettings = { ...this.originalUserSettings};
+
   constructor() { }
 
   ngOnInit() { }
 
 }
+
+/*
+Copying Form Data
+
+There's a certain scenario you need to be aware of when working with
+forms and data in Angular. What happens if a user starts filling out a
+form and then either presses a Cancel button or a back button? You want
+to make sure that the changes that they made are cancelled. So one way
+to do that is to make sure that you're always working with a copy of the
+original form data. Let's see one way to accomplish this. I'll go to our
+components.ts file, and you can see that we're using userSettings here,
+but let's rename this to originalUserSettings. Now as the user modifies
+the form, we don't want to change the originalUserSettings, we want to
+go ahead and do what we're doing now, which is modify plain old
+userSettings. So we need to make a copy of originalUserSettings. One way
+to do that is with the spread operator. The spread operator, the ...
+right here will take originalUserSettings, and copy each property into
+userSettings. This is a simple way to create a copy of the top-level
+properties. If you wanted to make a depp copy of objects within objects,
+you would need to use some other method, Lodash, fn deep clone that'll
+fully copy an object. But for our purposes here on this flat object,
+this technique works fine.
+*/
